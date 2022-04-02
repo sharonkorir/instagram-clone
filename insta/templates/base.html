@@ -1,3 +1,4 @@
+{% extends 'materialize/materialize_base_dev.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,21 @@
   {% else %}
   <title>Instagram-clone</title>
   {% endif %}
+  <!--materialize stylesheets-->
+  {% block materialize_stylesheets %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css" integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous" />
+  {% endblock %}
+
 </head>
 <body>
   {% block content %}
+    
   {% endblock %}
+  <!--materialize scripts-->
+  {% block materialize_javascripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  {% endblock %}
+
 </body>
 </html>
