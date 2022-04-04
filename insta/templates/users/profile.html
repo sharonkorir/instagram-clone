@@ -18,7 +18,20 @@
         <p>bio{{user.userprofile.bio}}</p>
       </div>
     </div>
-    
+    <div class="row">
+      <!--enctype to save image-->
+      <form action="" method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form">
+          <legend>Profile Info</legend>
+          <!--render form fields as paragraph-->
+          {{ p_form|crispy }}
+        </fieldset>
+        <div>
+          <button type="submit">Update</button>
+        </div>
+      </form>
+    </div>
     
 
   </div>

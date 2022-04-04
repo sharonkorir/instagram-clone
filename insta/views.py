@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, ProfileUpdateForm
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
 
@@ -34,4 +34,19 @@ def register(request):
     
 @login_required(login_url='login/')
 def profile(request):
-    return render(request, 'users/profile.html')
+    if request.method == 'POST':
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
+
+        if p_form.is_valid():
+            p_form.save()
+            #succesful update message
+            messages.success(request, f'Your account has been updated')
+            return redirect('profile')
+    else:
+        p_form = ProfileUpdateForm(request.POST)
+
+    context = {
+      'p_form': p_form
+    }
+
+    return render(request, 'users/profile.html', context)

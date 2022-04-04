@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     profile_photo = CloudinaryField('image')
     # name = models.CharField(max_length=30)
     # email = models.EmailField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='related')
     
     def __str__(self):
         return f'{self.user.username} Profile'
