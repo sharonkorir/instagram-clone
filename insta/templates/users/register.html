@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  {{ block.super }}
+  <div class="container">
+    <form action="" method = 'POST'>
+      {% csrf_token %}
+      <fieldset class="form">
+        <p>Sign Up</p>
+        <!--render form fields as paragraph-->
+        {{ form.as_p }}
+      </fieldset>
+      <div class="">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+    <div>
+      <p>Have an account? <a href=""> Log In</a></p>
+    </div>
+  </div>
+{% endblock %}
