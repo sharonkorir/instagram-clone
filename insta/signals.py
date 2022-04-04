@@ -3,5 +3,23 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import UserProfile
 
+#send signal to create_profile receiver when a user is saved
 
-#def create_profile(sender, instance, created, **kwargs):
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    '''
+    function to create a user profile for each new user
+
+    args:
+    '''
+
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwargs):
+    '''
+    function to save a user profile for each new user
+    '''
+
+    instance.userprofile.save()
