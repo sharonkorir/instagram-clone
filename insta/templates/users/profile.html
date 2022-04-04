@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col s4">
-        {% if user.userprofile.photo %}
+        {% if user.userprofile.profile_photo %}
         <img src="{{user.userprofile.profile_photo.url}}" alt="" class="circle responsive-img">
         {% else %}
         <p>no profile pic</p>
@@ -14,7 +14,7 @@
       <div class="col s6">
         <h5>{{user.username}}</h5>
         <p>{{ user.email }}</p>
-        <p>profile path{{user.userprofile.profile_photo}}</p>
+        
         <p>bio{{user.userprofile.bio}}</p>
       </div>
     </div>
