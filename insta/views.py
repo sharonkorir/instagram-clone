@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 #from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegistrationForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, ProfileUpdateForm, NewPostForm
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
 
@@ -34,6 +34,9 @@ def register(request):
     
 @login_required(login_url='login/')
 def profile(request):
+    '''
+    returns user profile if user is authenticated
+    '''
     if request.method == 'POST':
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
 
@@ -50,3 +53,18 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+@login_required(login_url='login/')
+def new_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.profile = current_user
+            post.save()
+        return redirect('index')
+
+    else:
+        form = NewPostForm()
+    return render(request, 'new_post.html', {"form": form})

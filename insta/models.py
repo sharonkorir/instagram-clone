@@ -1,4 +1,4 @@
-from email.policy import default
+
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
@@ -38,7 +38,7 @@ class Post(models.Model):
     name = models.CharField(max_length =60)
     caption = models.TextField()
     image = CloudinaryField('image')
-    #profile = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(likes)
     comments = models.ManyToManyField(comments)
     date_posted = models.DateTimeField(auto_now_add=True)
