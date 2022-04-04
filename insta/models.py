@@ -3,12 +3,16 @@ from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Profile(models.Model):
+class UserProfile(models.Model):
     '''
     Profile model acts as blueprint for all profile instances
     '''
     bio = models.CharField(max_length =150)
     profile_photo = CloudinaryField('image')
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
+    
+    
 
     def __str__(self):
         return self.bio
@@ -43,5 +47,7 @@ class Post(models.Model):
         return self.name
     
 
-
+class EmailRecepients(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
     

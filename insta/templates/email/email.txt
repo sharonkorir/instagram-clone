@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to instagram. Follow your friends to view their latest posts.
