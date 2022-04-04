@@ -5,8 +5,10 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm
 from .email import send_welcome_email
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
     return render(request, 'index.html')
 
@@ -23,9 +25,9 @@ def register(request):
         recipient.save()
         send_welcome_email(username,email)
         #succesful log in message
-        messages.success(request, f'Welcome {username}')
+        messages.success(request, f'Your  Insta-clone account had been created successfully')
         
-        return redirect('index')
+        return redirect('login')
     else:
       form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})

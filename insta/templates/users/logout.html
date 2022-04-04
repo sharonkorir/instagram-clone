@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+  {{ block.super }}
+  <div class="container">
+    <div class="row"></div>
+    <div class="row">
+      <h5>You have been logged out successfully</h5>
+      <div>
+        <p> <a href="{% url 'login' %}"> Log In</a></p>
+      </div>
+    </div>
+    
+  </div>
+{% endblock %}
