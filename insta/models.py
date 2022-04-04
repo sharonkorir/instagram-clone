@@ -9,13 +9,12 @@ class UserProfile(models.Model):
     '''
     bio = models.CharField(max_length =150)
     profile_photo = CloudinaryField('image')
-    name = models.CharField(max_length=30)
-    email = models.EmailField()
+    # name = models.CharField(max_length=30)
+    # email = models.EmailField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
-    
-
     def __str__(self):
-        return self.bio
+        return f'{self.user.username} Profile'
 
 class likes(models.Model):
     count = models.IntegerField()
@@ -38,7 +37,7 @@ class Post(models.Model):
     name = models.CharField(max_length =60)
     caption = models.TextField()
     image = CloudinaryField('image')
-    #profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    #profile = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(likes)
     comments = models.ManyToManyField(comments)
     date_posted = models.DateTimeField(auto_now_add=True)

@@ -8,7 +8,7 @@ from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login/')
 def index(request):
     return render(request, 'index.html')
 
@@ -32,3 +32,6 @@ def register(request):
       form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
     
+@login_required(login_url='login/')
+def profile(request):
+    return render(request, 'users/profile.html')
