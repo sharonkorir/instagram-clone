@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
   {{ block.super }}
   <div class="container">
@@ -7,7 +8,7 @@
       <fieldset class="form">
         <p>Sign Up</p>
         <!--render form fields as paragraph-->
-        {{ form.as_p }}
+        {{ form|crispy }}
       </fieldset>
       <div class="">
         <button type="submit">Sign Up</button>
