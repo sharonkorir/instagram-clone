@@ -6,7 +6,8 @@ from django.contrib import messages
 from .forms import UserRegistrationForm, ProfileUpdateForm, NewPostForm
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 @login_required(login_url='login/')
@@ -73,7 +74,7 @@ class PostDetailView(DetailView):
     model = Post
 
 #class view for creating posts that inherits from CreateView
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     fields = ['name', 'image', 'caption']
     
@@ -81,23 +82,52 @@ class PostCreateView(CreateView):
         form.instance.profile = self.request.user
         return super().form_valid(form)
 
-@login_required(login_url='login/')
-def new_post(request):
-    '''
-    Creates and saves a user post.
-    '''
-    current_user = request.user
-    if request.method == 'POST':
-        form = NewPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.profile = current_user
-            post.save()
-        return redirect('index')
+#class view for updating post caption that inherits from UpdateView
+class PostUpdateView(LoginRequiredMixin,
+UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['caption']
+    
+    def form_valid(self,form):
+        form.instance.profile = self.request.user
+        return super().form_valid(form)
 
-    else:
-        form = NewPostForm()
-    return render(request, 'insta/new_post.html', {"form": form})
+    #confirm only post owner can update caption
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.profile:
+            return True
+        return False
+
+#class view for deleting posts that inherits from DeleteView
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/'
+
+    #confirm only post owner can delete
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.profile:
+            return True
+        return False
+
+# @login_required(login_url='login/')
+# def new_post(request):
+#     '''
+#     Creates and saves a user post.
+#     '''
+#     current_user = request.user
+#     if request.method == 'POST':
+#         form = NewPostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.profile = current_user
+#             post.save()
+#         return redirect('index')
+
+#     else:
+#         form = NewPostForm()
+#     return render(request, 'insta/new_post.html', {"form": form})
 
 def search_results(request):
     '''
