@@ -1,32 +1,43 @@
 <nav>
-  <div class="nav-wrapper">
-    <a href="{% url 'index' %}" class="brand-logo left">Instagram</a>
-    <ul class="center">
+  <div class="nav-wrapper white">
+    <a href="{% url 'index' %}" class="brand-logo left black-text">Instagram</a>
 
-    </ul>
+    
     <ul class="right">
       <li>
-        <form id="search-site"  action="{% url 'search_results' %}" method='get'>
-          <div class="input-group">
-            <div class="input-field">
-            <input id="search" type="search" name='user' placeholder="search users...">
-          </div>
-          <label class="label-icon" for="search">
-            <button type="submit" class="input-group-addon btn teal"><i class="material-icons">search</i></button>
-          </label>
-          <!--<button type="submit" class="input-group-addon btn">search</button>-->
+        
+        <form id="search-site" action="{% url 'search_results' %}" method='get'>
+          <div class="input-field">
+            
+            <input placeholder="Search users..."  id="search" type="text" class="validate" name="user">
+            <!-- <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label> -->
+            <!-- <i class="material-icons">close</i> -->
           </div>
         </form>
+      
       </li>
-      <li><a href="{% url 'search_results' %}"><i class="material-icons">search</i></a></li>
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'profile' username=user %}"><i class="material-icons">account_circle</i></a></li>
-        <li><a href="{% url 'logout' %}"><i class="material-icons">view_module</i></a></li>
-        <li><a href="{% url 'post_create' %}"><i class="material-icons">add</i></a></li>
-      {% else %}
-        <li><a href="{% url 'login' %}"><i class="material-icons">view_module</i></a></li>
-        <li><a href="{% url 'register' %}"><i class="material-icons">refresh</i></a></li>
-      {% endif %}
+      
+        <!-- <form id="search-site"  action="{% url 'search_results' %}" method='get'>
+          <div class="input-group">
+            <div class="input-field">
+              <label class="label-icon" for="search">
+                <i class="material-icons black-text">search</i>
+              </label>
+              <input id="search" type="search" name='user' placeholder="search users...">
+            </div>
+          </div>
+            
+        </form> -->
+      
+      <!-- <li><a href="{% url 'search_results' %}"><i class="material-icons black-text">search</i> <input class="input-field" id="search" type="search" name='user' placeholder="search users..."></a></li> -->
+      <li><a href="/"><i class="material-icons black-text">home</i></a></li>
+      <li><a href="{% url 'post_create' %}"><i class="material-icons black-text">add</i></a></li>
+      <li><a href="{% url 'profile' username=user %}"><i class="material-icons black-text">account_circle</i></a></li>
+      <li><a href="{% url 'logout' %}"><i class="material-icons black-text">exit_to_app</i></a></li>
+        
+        <!-- <li><a href="{% url 'login' %}"><i class="material-icons black-text">view_module</i></a></li>
+        <li><a href="{% url 'register' %}"><i class="material-icons black-text">refresh</i></a></li> -->
+
       
     </ul>
   </div>
