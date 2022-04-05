@@ -1,3 +1,4 @@
+from email import message
 from .models import EmailRecepients, Post, User, UserProfile
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
@@ -146,4 +147,5 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
 
