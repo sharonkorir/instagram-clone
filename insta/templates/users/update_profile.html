@@ -20,39 +20,18 @@
     </div>
     <div class="row">
       <!--enctype to save image-->
-      <!--<form action="" method = 'POST' enctype="multipart/form-data">
+      <form action="" method = 'POST' enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form">
           <legend>Profile Info</legend>
-          render form fields as paragraph
+          <!--render form fields as paragraph-->
           {{ p_form|crispy }}
         </fieldset>
         <div>
           <button type="submit">Update</button>
         </div>
-
-      </form>-->
-      <div>
-        <a href="{% url 'update_profile' %}">update</a>
-      </div>
+      </form>
     </div>
-    <div class="container-fluid" id="image-body">
-      <div class="row" id="img-row">
-        {% for post_item in posts %}
-        <div class="col s12 m4 l3" style="padding: 0px;" >
-          <div class="card-panel hoverable teal darken-4" id="card">
-  
-              <div class="card-image">
-                
-                  <img src="{{post_item.image.url}}" class="responsive-img" alt="Image" id="img">
-                
-              </div>
-            </a>
-            <p>test{{post_item.caption}}</p>
-            <a href="{% url 'post_detail' pk=post_item.id%}">{{post_item.name}}</a>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
+    
   </div>
 {% endblock %}

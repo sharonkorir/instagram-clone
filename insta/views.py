@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm, ProfileUpdateForm, NewPostForm
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 @login_required(login_url='login/')
@@ -57,7 +58,20 @@ def profile(request):
       'posts': Post.objects.filter(profile = request.user)
     }
 
-    return render(request, 'users/profile.html', context)
+    return render(request, 'users/update_profile.html', context)
+
+#class view for posts that inherits from ListView
+class PostListView(ListView):
+    model = Post
+    template_name = 'users/profile.html'
+    context_object_name = 'posts'
+    #order posts by date
+    ordering = ['-date_posted']
+
+#class view for individual posts that inherits from DetailView
+class PostDetailView(DetailView):
+    model = Post
+    
 
 @login_required(login_url='login/')
 def new_post(request):
@@ -75,7 +89,7 @@ def new_post(request):
 
     else:
         form = NewPostForm()
-    return render(request, 'new_post.html', {"form": form})
+    return render(request, 'insta/new_post.html', {"form": form})
 
 def search_results(request):
     '''
@@ -94,3 +108,4 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
