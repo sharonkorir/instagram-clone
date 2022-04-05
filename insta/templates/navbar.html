@@ -6,15 +6,19 @@
     </ul>
     <ul class="right">
       <li>
-        <form class="input field">
-          <!--<div class="input-field">-->
-            <input id="search" type="search" required>
-            <!--<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-            <i class="material-icons">close</i>
-          </div>-->
+        <form id="search-site"  action="{% url 'search_results' %}" method='get'>
+          <div class="input-group">
+            <div class="input-field">
+            <input id="search" type="search" name='user' placeholder="search users...">
+          </div>
+          <label class="label-icon" for="search">
+            <button type="submit" class="input-group-addon btn teal"><i class="material-icons">search</i></button>
+          </label>
+          <!--<button type="submit" class="input-group-addon btn">search</button>-->
+          </div>
         </form>
       </li>
-      <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+      <li><a href="{% url 'search_results' %}"><i class="material-icons">search</i></a></li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'profile' %}"><i class="material-icons">account_circle</i></a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons">view_module</i></a></li>

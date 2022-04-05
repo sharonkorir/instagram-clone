@@ -1,0 +1,36 @@
+{%extends 'base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if users%}
+      <h5>Found {{ users|length }} with name '{{message}}'</h5>
+    {% else %}
+      <h5> Found 0 users with name '{{message}}'</h5>
+    {% endif %}
+  </div>
+
+  <div class="row">
+  {% if users %}
+    {% for user in users %}
+    <div class="col s12 m4 l3" style="padding: 0px;" >
+      <div class="card-panel hoverable teal darken-4" id="card">
+        
+          <div class="card-image">
+            
+              <img src="{{user.profile_photo.url}}" class="responsive-img" alt="Image" id="img">
+            
+          </div>
+        </a>
+      </div>
+      <p>test{{user}}</p>
+      <p>test{{user.user.username}}</p>
+      <p>test{{user.bio}}</p>
+    </div>
+      
+    
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-from .models import EmailRecepients, User
+from .models import EmailRecepients, User, UserProfile
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 #from django.contrib.auth.forms import UserCreationForm
@@ -68,3 +68,16 @@ def new_post(request):
     else:
         form = NewPostForm()
     return render(request, 'new_post.html', {"form": form})
+
+def search_results(request):
+
+    if 'user' in request.GET and request.GET["user"]:
+        search_term = request.GET.get("user")
+        searched_users = UserProfile.search_user(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"users": searched_users})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})

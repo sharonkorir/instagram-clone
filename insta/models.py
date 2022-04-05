@@ -17,6 +17,12 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    @classmethod
+    def search_user(cls,search_term):
+        users = cls.objects.filter(user__username__icontains=search_term)
+        return users
+
+
 class likes(models.Model):
     count = models.IntegerField()
 
@@ -45,9 +51,20 @@ class Post(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+    def save_post(self):
+        self.save()
+
+    @classmethod
+    def get_user_posts(cls, proflie__id):
+        posts = cls.objects.filter(profile__id__icontains = proflie__id)
+        return posts
 
 class EmailRecepients(models.Model):
+    '''
+    EmailRecepients model acts as blueprint for all email recepients on registation
+    '''
+
     name = models.CharField(max_length=30)
     email = models.EmailField()
     
