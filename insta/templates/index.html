@@ -15,7 +15,7 @@
             </div>
           </a>
           <p>test{{post_item.caption}}</p>
-          
+          <a href="{% url 'post_detail' pk=post_item.id%}">{{post_item.name}}</a>
         </div>
       </div>
     {% endfor %}

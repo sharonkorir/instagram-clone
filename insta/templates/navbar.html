@@ -22,7 +22,7 @@
       {% if user.is_authenticated %}
         <li><a href="{% url 'profile' username=user %}"><i class="material-icons">account_circle</i></a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons">view_module</i></a></li>
-        <li><a href="{% url 'new_post' %}"><i class="material-icons">add</i></a></li>
+        <li><a href="{% url 'post_create' %}"><i class="material-icons">add</i></a></li>
       {% else %}
         <li><a href="{% url 'login' %}"><i class="material-icons">view_module</i></a></li>
         <li><a href="{% url 'register' %}"><i class="material-icons">refresh</i></a></li>

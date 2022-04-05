@@ -6,7 +6,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm, ProfileUpdateForm, NewPostForm
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 # Create your views here.
 @login_required(login_url='login/')
@@ -71,7 +71,15 @@ class PostListView(ListView):
 #class view for individual posts that inherits from DetailView
 class PostDetailView(DetailView):
     model = Post
+
+#class view for creating posts that inherits from CreateView
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['name', 'image', 'caption']
     
+    def form_valid(self,form):
+        form.instance.profile = self.request.user
+        return super().form_valid(form)
 
 @login_required(login_url='login/')
 def new_post(request):

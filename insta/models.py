@@ -2,6 +2,7 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -51,6 +52,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.name
+
+    #return url path after creating a post
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'pk': self.pk})
 
     def save_post(self):
         self.save()
