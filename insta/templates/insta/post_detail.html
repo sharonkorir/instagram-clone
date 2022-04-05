@@ -16,10 +16,12 @@
           <p>test{{object.caption}}</p>
         </div>
         {% if object.profile == user %}
-        <a href="{% url 'post_update' pk=object.id %}"><i class="material-icons">create</i></a>
-        <a href="{% url 'post_delete' pk=object.id %}"><i class="material-icons">delete</i></a>
+          <div>
+            <a href="{% url 'post_update' pk=object.id %}"><i class="material-icons">create</i></a>
+            <a href="{% url 'post_delete' pk=object.id %}"><i class="material-icons">delete</i></a>
+          </div>
         {% endif %}
       </div>
-
+    </div>
   </div>
 {% endblock %}

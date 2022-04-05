@@ -16,6 +16,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from decouple import config
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,8 @@ SECRET_KEY = 'django-insecure-lrpbdn*mdik7-urh)^n=%9*wo6%kw+8a22@8a3fl6!aq+tk!yj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['instagram-clon3.herokuapp.com']
 
 
 # Application definition
@@ -85,10 +87,16 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 
 DATABASES = {
     'default': {
+        #'HOST': 'ec2-99-80-170-190.eu-west-1.compute.amazonaws.com',
+        'HOST': config('DATABASE_HOST'),
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram',
-        'USER': 'sharon',
-        'PASSWORD':'12345678',
+        #'ENGINE': config('DATABASE_ENGINE'),
+        #'NAME': 'instagram',
+        'NAME': config('DATABASE_NAME'),
+        # 'USER': 'vdbiaodjzvjsvm',
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'PORT': '5432'
     }
 }
 
@@ -131,6 +139,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+django_heroku.settings(locals())
 
 cloudinary.config( 
   cloud_name = "dq2ipkrpz", 
