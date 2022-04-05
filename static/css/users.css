@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+
+body{
+  background-color: #fafafa;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#login, #login2{
+  background-color: white;
+  border-style: solid;
+  border-color: #dbdbdb;
+  border-width: thin;
+  text-align: center;
+  padding-left: 40px;
+  padding-right: 40px;
+
+}
+
+fieldset{
+  margin: 50px;
+}
+
+h2{
+  font-family: 'Grand Hotel', cursive;
+  font-size: 40pt;
+}
