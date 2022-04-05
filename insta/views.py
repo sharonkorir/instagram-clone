@@ -1,4 +1,4 @@
-from .models import EmailRecepients, UserProfile
+from .models import EmailRecepients, User
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 #from django.contrib.auth.forms import UserCreationForm
