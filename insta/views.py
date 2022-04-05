@@ -1,4 +1,4 @@
-from .models import EmailRecepients, User, UserProfile
+from .models import EmailRecepients, Post, User, UserProfile
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 #from django.contrib.auth.forms import UserCreationForm
@@ -10,9 +10,13 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='login/')
 def index(request):
-    return render(request, 'index.html')
+    posts = Post.objects.all()
+    return render(request, 'index.html', {'posts':posts})
 
 def register(request):
+    '''
+    Register a new user on registration and create user profile using signals
+    '''
     if request.method == 'POST':
       form = UserRegistrationForm(request.POST)
       if form.is_valid():
@@ -49,13 +53,17 @@ def profile(request):
         p_form = ProfileUpdateForm(request.POST, instance=request.user.userprofile)
 
     context = {
-      'p_form': p_form
+      'p_form': p_form,
+      'posts': Post.objects.filter(profile = request.user)
     }
 
     return render(request, 'users/profile.html', context)
 
 @login_required(login_url='login/')
 def new_post(request):
+    '''
+    Creates and saves a user post.
+    '''
     current_user = request.user
     if request.method == 'POST':
         form = NewPostForm(request.POST, request.FILES)
@@ -70,6 +78,11 @@ def new_post(request):
     return render(request, 'new_post.html', {"form": form})
 
 def search_results(request):
+    '''
+    Function to search for users
+    
+    Args: username
+    '''
 
     if 'user' in request.GET and request.GET["user"]:
         search_term = request.GET.get("user")

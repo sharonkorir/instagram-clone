@@ -2,4 +2,21 @@
 {% block content %}
   {{ block.super }}
   <p>test app</p>
+  <div class="container-fluid" id="image-body">
+    <div class="row" id="img-row">
+      {% for post_item in posts %}
+      <div class="col s12 m4 l3" style="padding: 0px;" >
+        <div class="card-panel hoverable teal darken-4" id="card">
+
+            <div class="card-image">
+              
+                <img src="{{post_item.image.url}}" class="responsive-img" alt="Image" id="img">
+              
+            </div>
+          </a>
+          <p>test{{post_item.caption}}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}
