@@ -16,9 +16,6 @@ body{
 
 }
 
-fieldset{
-  margin: 50px;
-}
 
 h2{
   font-family: 'Grand Hotel', cursive;
@@ -31,7 +28,6 @@ h2{
 
 .card-image{
   height: 300px;
-  width: 300px;
   overflow: hidden;
   cursor: pointer;
 }
@@ -47,3 +43,6 @@ h2{
   margin: 5px;
 }
 
+.brand-logo{
+  font-family: 'Grand Hotel', cursive;
+}

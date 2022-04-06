@@ -9,3 +9,27 @@ body{
   font-family: 'Grand Hotel', cursive;
 }
 
+#img-row{
+  padding: 40px;
+}
+
+.card-image{
+  height: 300px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#img{
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+}
+
+#card{
+  padding: 0px;
+  margin: 5px;
+}
+
+.brand-logo{
+  font-family: 'Grand Hotel', cursive;
+}

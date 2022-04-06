@@ -3,50 +3,59 @@
 {% block content %}
 {% include "navbar.html" %}
   <div class="container-fluid">
-    <div class="row" style="padding-top: 50px;">
-      <div class="col s12 m12 l2"></div>
-      <div class="col s12 m12 l12">
-        <div class="col s4">
-          {% if user.userprofile.profile_photo %}
-          <img src="{{user.userprofile.profile_photo.url}}" alt="" class="circle responsive-img">
-          {% else %}
-          <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
-          {% endif %}
+    <div class="row center-align" style="display: flex; justify-content: center; align-items: center; padding-top:50px;">
+      <div class="col s12 m6 l6">
+        {% if user.userprofile.profile_photo %}
+        <img src="{{user.userprofile.profile_photo.url}}" alt="" class="circle responsive-img">
+        {% else %}
+        <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
+        {% endif %}
+      </div>
+      <div class="col s8">
+        <div class="row" style="display: flex;">
+          <h5>{{user.username}}</h5>
+          <p><a href="{% url 'update_profile' %}">Edit Profile</a></p>
         </div>
-        <div class="col s8">
-          <div class="row" style="display: flex;">
-            <h5>{{user.username}}</h5>
-            <p><a href="{% url 'update_profile' %}">Edit Profile</a></p>
-          </div>
-          <div class="row" style="display: flex;">
-            <p>{{posts|length}} posts </p>
-            <p> followers </p>
-            <p> following </p>
-          </div>
-          <div class="row">
-            <p>{{user.userprofile.bio}}</p>
-          </div>
+        <div class="row" style="display: flex;">
+          <p>{{posts|length}} posts </p>
+          <p> followers </p>
+          <p> following </p>
+        </div>
+        <div class="row">
+          <p>{{user.userprofile.bio}}</p>
         </div>
       </div>
-      <div class="col s12 m12 l2"></div>
+    </div>
+    <div class="row" style="padding-top: 50px;">
+      <div class="col s12 m12 l4"></div>
+      <div class="col s12 m12 l6">
+        
+      </div>
+      <div class="col s12 m12 l4"></div>
     </div> 
+    <!--user photos-->
+    <div class="divider"></div>
+    <div class="row center-align" style="display: flex; justify-content: center; align-items: center;">
+      <p><i class="material-icons black-text">apps</i></p>
+      <p>Posts</p>
+    </div>
     <div class="row">
       <div class="col s12 m12 l2"></div>
-      <div class="col s12 m12 l10">
+      <div class="col s12 m12 l8">
         <div class="container-fluid" id="image-body">
           <div class="row" id="img-row">
             {% for post_item in posts %}
             <div class="col s12 m4 l4" style="padding: 0px;" >
-              <div class="card-panel hoverable teal darken-4" id="card">
+              <div class="card-panel hoverable white" id="card">
         
                   <div class="card-image">
-                    
+                    <a href="{% url 'post_detail' pk=post_item.id%}">
                       <img src="{{post_item.image.url}}" class="responsive-img" alt="Image" id="img">
-                    
+                    </a>
                   </div>
-                </a>
-                <p>test{{post_item.caption}}</p>
-                <a href="{% url 'post_detail' pk=post_item.id%}">{{post_item.name}}</a>
+              
+                <!-- <p>test{{post_item.caption}}</p>
+                <a href="{% url 'post_detail' pk=post_item.id%}">{{post_item.name}}</a> -->
               </div>
             </div>
           {% endfor %}
