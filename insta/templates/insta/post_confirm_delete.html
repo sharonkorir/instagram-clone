@@ -3,20 +3,29 @@
 {% block content %}
   {{ block.super }}
   <div class="container">
-    <div class="row"></div>
-    <div class="row">
-      <form action="" method = 'POST' enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form">
-          <legend>Delete Post</legend>
-          <h5>Are you sure you want to delete this post?</h5>
-        </fieldset>
-        <div>
-          <button type="submit">Yes, Delete</button>
-          <a href="{% url 'post_detail' pk=object.id %}">Cancel</a>
+    <div class="row" style="padding-top: 50px;">
+      <div class="col s12 m2 l3"></div>
+      <div class="col s12 m8 l6" id="login">
+        <div class="row">
+          <h6 class="instagram">Delete post</h6>
+          <p>Are you sure you want to delete this post?</p>
         </div>
-      </form>
-    </div>
-    
+        <form action="" method = 'POST'>
+          {% csrf_token %}
+          
+          <!--render form fields as paragraph-->
+          {{ form }}
+          <div>
+            <button type="submit" class=" waves-effect waves-light btn blue red">Yes, Delete</button>
+            <a href="{% url 'post_detail' pk=object.id %}">Cancel</a>
+          </div>
+        </form>
+      </div>
+      <div class="col s12 m2 l3"></div>
+    </div> 
+  </div>
+  <!--footer-->
+  <div class="section center" style="color: #8c9395;">
+    <p>2022 insta-clone</p>
   </div>
 {% endblock %}
