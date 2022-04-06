@@ -70,6 +70,13 @@ class PostListView(ListView):
     #order posts by date
     ordering = ['-date_posted']
 
+class PostListViewIndex(ListView):
+    model = Post
+    template_name = 'index.html'
+    context_object_name = 'posts'
+    #order posts by date
+    ordering = ['-date_posted']
+
 #class view for individual posts that inherits from DetailView
 class PostDetailView(DetailView):
     model = Post
