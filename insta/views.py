@@ -62,6 +62,10 @@ def profile(request):
 
     return render(request, 'users/update_profile.html', context)
 
+def profile_posts(request, username):
+  posts = Post.objects.filter(profile=request.user)
+  return render(request, 'users/profile.html', {'posts':posts})
+
 #class view for posts that inherits from ListView
 class PostListView(ListView):
     model = Post
