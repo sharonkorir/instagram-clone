@@ -2,20 +2,46 @@
 {% block content %}
   {{ block.super }}
   
-  <div class="container" id="image-body" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
+  <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
     {% for post_item in posts %}
     <div class="row" id="img-row" style="padding: 0px;">
         <div class="card-panel hoverable white" id="card">
-          <img src="{{post_item.profile.userprofile}}" alt="" class="circle responsive-img">
-          <!-- <p>test{{post_item.profile.user.userprofile}}</p> -->
-          <p><b>{{post_item.profile}}</b></p></h5>
-          <div class="card-image" style="height: 600px;">
+          <!--card header-->
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="card-image" style="height: 80px; width: 80px; padding: 10px;">
+              {% if post_item.profile.userprofile.profile_photo %}
+                <img src="{{post_item.profile.userprofile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
+              {% else %}
+                <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
+              {% endif %}
+            </div> 
+            <p><b>{{post_item.profile}}</b></p></h5>   
+          </div>
+          <!--image-->
+          <div class="card-image" style="height: 600px; padding-top: 0px;">
             <a href="{% url 'post_detail' pk=post_item.id%}">
               <img src="{{post_item.image.url}}" class="responsive-img" alt="Image" id="img">
             </a>
           </div>
           <!--footer-->
-          <p><b>{{post_item.profile}}</b> {{post_item.caption}}</p></h5>
+          <div class="row" style="display: flex; align-items: center;">
+            <i class="material-icons" style="padding: 10px;">favorite_border</i>
+            <i class="material-icons"style="padding: 10px;">chat_bubble_outline</i>
+            <i class="material-icons"style="padding: 10px;">send</i>
+          </div>
+          <div style="padding-left: 10px; padding-right: 10px;">
+            <p><b>likes</b></p>
+          </div>
+          <div style="padding-left: 10px; padding-right: 10px; display: flex;">
+            <p style="padding-right: 5px;"><b>{{post_item.profile}}</b> </p>
+            <p> {{post_item.caption}}</p>
+          </div>
+          <div style="padding-left: 10px; padding-right: 10px;">
+            <!--comments-->
+          </div>
+          <div class="grey-text" style="padding-left: 10px; padding-right: 10px;">
+            <p>{{post_item.date_posted|timesince}} ago</p>
+          </div>
           <!-- <a href="{% url 'post_detail' pk=post_item.id%}">{{post_item.name}}</a> -->
         </div>
       </div>
