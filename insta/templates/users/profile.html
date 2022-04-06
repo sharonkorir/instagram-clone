@@ -2,6 +2,15 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% include "navbar.html" %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="container center-align">
+      <div>
+        {{ message }}
+      </div> 
+    </div>
+  {% endfor %}
+{% endif %}
   <div class="container-fluid">
     <div class="row center-align" style="display: flex; justify-content: center; align-items: center; padding-top:50px;">
       <div class="col s12 m6 l6">

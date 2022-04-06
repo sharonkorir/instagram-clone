@@ -49,9 +49,12 @@ def profile(request):
 
         if p_form.is_valid():
             p_form.save()
+            #fetch user posts
+            posts = Post.objects.filter(profile=request.user)
             #succesful update message
             messages.success(request, f'Your account has been updated')
-            return redirect('profile')
+            # return redirect('profile')
+            return render(request,'users/profile.html', {'posts':posts})
     else:
         p_form = ProfileUpdateForm(request.POST, instance=request.user.userprofile)
 
