@@ -37,11 +37,9 @@ class comments(models.Model):
     def __str__(self):
         return self.content
     
-    #return url path after creating a post
-    def get_absolute_url(self):
-        return reverse('/', kwargs={'pk': self.pk})
-
-
+    class Meta:
+        ordering = ['-pk']
+ 
 class Post(models.Model):
     '''
     Post model acts as blueprint for all post instances
@@ -57,17 +55,11 @@ class Post(models.Model):
     def __str__(self):
         return self.name
 
-    #return url path after creating a post
-    def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'pk': self.pk})
-
     def save_post(self):
         self.save()
 
-    @classmethod
-    def get_user_posts(cls, proflie__id):
-        posts = cls.objects.filter(profile__id__icontains = proflie__id)
-        return posts
+    class Meta:
+        ordering = ['-date_posted']
 
 class EmailRecepients(models.Model):
     '''

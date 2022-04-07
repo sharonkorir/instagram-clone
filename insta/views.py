@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 @login_required(login_url='login/')
 def index(request):
     posts = Post.objects.all()
-    return render(request, 'index.html', {'posts':posts})
+    return render(request, 'index.html', {'posts':posts, 'comments':comments})
 
 def register(request):
     '''
@@ -76,20 +76,21 @@ def user_profile(request, username):
   
 
 
-#class view for posts that inherits from ListView
-class PostListView(ListView):
-    model = Post
-    template_name = 'users/profile.html'
-    context_object_name = 'posts'
-    #order posts by date
-    ordering = ['-date_posted']
+# #class view for posts that inherits from ListView
+# class PostListView(ListView):
+#     model = Post
+#     template_name = 'users/profile.html'
+#     context_object_name = 'posts'
+#     #order posts by date
+#     ordering = ['-date_posted']
 
-class PostListViewIndex(ListView):
-    model = Post
-    template_name = 'index.html'
-    context_object_name = 'posts'
-    #order posts by date
-    ordering = ['-date_posted']
+# class PostListViewIndex(ListView):
+#     login_required = True
+#     model = Post
+#     template_name = 'index.html'
+#     context_object_name = 'posts'
+#     #order posts by date
+#     ordering = ['-date_posted']
 
 #class view for individual posts that inherits from DetailView
 class PostDetailView(DetailView):
