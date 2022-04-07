@@ -39,10 +39,7 @@
             <p> {{post_item.caption}}</p>
           </div>
           <div style="padding-left: 10px; padding-right: 10px;">
-            {% for comment in comments %}
-              <p>{{comment.content}}</p>
-              {{post_item.comments.content}}
-            {% endfor %}
+           
           </div>
           <div class="grey-text" style="padding-left: 10px; padding-right: 10px;">
             <p>{{post_item.date_posted|timesince}} ago</p>

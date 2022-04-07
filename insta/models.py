@@ -38,7 +38,7 @@ class Post(models.Model):
     caption = models.TextField()
     image = CloudinaryField('image')
     profile = models.ForeignKey(User,on_delete=models.CASCADE)
-    likes = models.ManyToManyField(UserProfile, related_name='post_likes')
+    likes = models.ManyToManyField(UserProfile, related_name='likes', blank=True)
     #comments = models.ManyToManyField(comments)
     date_posted = models.DateTimeField(auto_now_add=True)
 

@@ -4,7 +4,7 @@ This is a clone for the instagram photo app. Users can sign in, upload photos, v
 
 ## Screenshot
 
-<img src="" >
+<img src="static/photos/Screenshot from 2022-04-07 18-30-14.png" >
 
 ### Dependencies
 
