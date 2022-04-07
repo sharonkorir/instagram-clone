@@ -55,7 +55,7 @@ python3 manage.py test insta
 
 ## Live link
 
-https://instagram-clon3.herokuapp.com/
+https://insta-clone-sh.herokuapp.com/
 
 ## Built With
 
