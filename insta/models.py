@@ -48,6 +48,10 @@ class Post(models.Model):
     def save_post(self):
         self.save()
 
+    #return url path after creating a post
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['-date_posted']
 
