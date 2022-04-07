@@ -1,9 +1,8 @@
 from email import message
-from .models import EmailRecepients, Post, User, UserProfile, comments
-from django.http import HttpResponse
+from .models import EmailRecepients, Post, User, UserProfile, Comments
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, ProfileUpdateForm, NewPostForm
+from .forms import UserRegistrationForm, ProfileUpdateForm
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -13,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 @login_required(login_url='login/')
 def index(request):
     posts = Post.objects.all()
-    return render(request, 'index.html', {'posts':posts, 'comments':comments})
+    return render(request, 'index.html', {'posts':posts,})
 
 def register(request):
     '''
@@ -73,24 +72,11 @@ def user_profile(request, username):
   posts = Post.objects.filter(profile__userprofile__user__username=username)
   user = UserProfile.objects.filter(user__username=username)
   return render(request, 'users/profile.html', {'posts':posts, 'user':user})
-  
 
+def get_comments(request,pk):
 
-# #class view for posts that inherits from ListView
-# class PostListView(ListView):
-#     model = Post
-#     template_name = 'users/profile.html'
-#     context_object_name = 'posts'
-#     #order posts by date
-#     ordering = ['-date_posted']
-
-# class PostListViewIndex(ListView):
-#     login_required = True
-#     model = Post
-#     template_name = 'index.html'
-#     context_object_name = 'posts'
-#     #order posts by date
-#     ordering = ['-date_posted']
+    comments = Comments.get_comments_by_post(pk)
+    return render(request, 'index.html', {'comments':comments})
 
 #class view for individual posts that inherits from DetailView
 class PostDetailView(DetailView):
@@ -134,11 +120,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-class CommentListView(ListView):
-    model = comments
-
 class CommentCreateView(LoginRequiredMixin, CreateView):
-    model = comments
+    model = Comments
     fields = ['content']
     success_url = '/'
 

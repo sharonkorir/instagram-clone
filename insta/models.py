@@ -29,16 +29,6 @@ class likes(models.Model):
 
     def __str__(self):
         return self.count
-
-class comments(models.Model):
-    content = models.CharField(max_length =150)
-    # profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.content
-    
-    class Meta:
-        ordering = ['-pk']
  
 class Post(models.Model):
     '''
@@ -48,8 +38,8 @@ class Post(models.Model):
     caption = models.TextField()
     image = CloudinaryField('image')
     profile = models.ForeignKey(User,on_delete=models.CASCADE)
-    likes = models.ManyToManyField(likes)
-    comments = models.ManyToManyField(comments)
+    likes = models.ManyToManyField(UserProfile, related_name='post_likes')
+    #comments = models.ManyToManyField(comments)
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -60,6 +50,24 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-date_posted']
+
+class Comments(models.Model):
+    content = models.TextField(max_length =150)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE, default=1)
+
+    def __str__(self):
+        return self.content
+    
+    class Meta:
+        ordering = ['-pk']
+
+    def save_comment(self):
+        self.save()
+
+    @classmethod
+    def get_comments_by_post(cls,post_pk):
+        comments = cls.objects.filter(post=post_pk)
+        return comments
 
 class EmailRecepients(models.Model):
     '''
