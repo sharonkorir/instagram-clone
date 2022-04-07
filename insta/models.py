@@ -36,6 +36,10 @@ class comments(models.Model):
 
     def __str__(self):
         return self.content
+    
+    #return url path after creating a post
+    def get_absolute_url(self):
+        return reverse('/', kwargs={'pk': self.pk})
 
 
 class Post(models.Model):

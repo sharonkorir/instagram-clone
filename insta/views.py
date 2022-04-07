@@ -1,8 +1,7 @@
 from email import message
-from .models import EmailRecepients, Post, User, UserProfile
+from .models import EmailRecepients, Post, User, UserProfile, comments
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-#from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegistrationForm, ProfileUpdateForm, NewPostForm
 from .email import send_welcome_email
@@ -67,7 +66,15 @@ def profile(request):
 
 def profile_posts(request, username):
   posts = Post.objects.filter(profile=request.user)
-  return render(request, 'users/profile.html', {'posts':posts})
+  user = UserProfile.objects.filter(user=request.user)
+  return render(request, 'users/profile.html', {'posts':posts, 'user':user})
+
+def user_profile(request, username):
+  posts = Post.objects.filter(profile__userprofile__user__username=username)
+  user = UserProfile.objects.filter(user__username=username)
+  return render(request, 'users/profile.html', {'posts':posts, 'user':user})
+  
+
 
 #class view for posts that inherits from ListView
 class PostListView(ListView):
@@ -126,23 +133,17 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-# @login_required(login_url='login/')
-# def new_post(request):
-#     '''
-#     Creates and saves a user post.
-#     '''
-#     current_user = request.user
-#     if request.method == 'POST':
-#         form = NewPostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.profile = current_user
-#             post.save()
-#         return redirect('index')
+class CommentListView(ListView):
+    model = comments
 
-#     else:
-#         form = NewPostForm()
-#     return render(request, 'insta/new_post.html', {"form": form})
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = comments
+    fields = ['content']
+    success_url = '/'
+
+    def form_valid(self,form):
+        form.instance.profile = self.request.user
+        return super().form_valid(form)
 
 def search_results(request):
     '''

@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper white">
-      <a href="{% url 'index' %}" class="brand-logo left black-text">Insta</a>
+      <a href="{% url 'index' %}" class="brand-logo left black-text">Instagram-clone</a>
 
       
       <ul class="right">
@@ -11,33 +11,18 @@
             <div class="input-field">
               
               <input placeholder="Search users..."  id="search" type="text" class="validate" name="user">
-              <!-- <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label> -->
-              <!-- <i class="material-icons">close</i> -->
+           
             </div>
           </form>
         
         </li>
         
-          <!-- <form id="search-site"  action="{% url 'search_results' %}" method='get'>
-            <div class="input-group">
-              <div class="input-field">
-                <label class="label-icon" for="search">
-                  <i class="material-icons black-text">search</i>
-                </label>
-                <input id="search" type="search" name='user' placeholder="search users...">
-              </div>
-            </div>
-              
-          </form> -->
-        
-        <!-- <li><a href="{% url 'search_results' %}"><i class="material-icons black-text">search</i> <input class="input-field" id="search" type="search" name='user' placeholder="search users..."></a></li> -->
         <li><a href="/"><i class="material-icons black-text">home</i></a></li>
         <li><a href="{% url 'post_create' %}"><i class="material-icons black-text">add</i></a></li>
         <li><a href="{% url 'profile' username=user %}"><i class="material-icons black-text">account_circle</i></a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons black-text">exit_to_app</i></a></li>
           
-          <!-- <li><a href="{% url 'login' %}"><i class="material-icons black-text">view_module</i></a></li>
-          <li><a href="{% url 'register' %}"><i class="material-icons black-text">refresh</i></a></li> -->
+      
 
         
       </ul>
