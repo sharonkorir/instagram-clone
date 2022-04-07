@@ -11,7 +11,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
-@login_required(login_url='login/')
+@login_required
 def index(request):
     posts = Post.objects.all()
     return render(request, 'index.html', {'posts':posts})
